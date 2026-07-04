@@ -42,6 +42,8 @@ marker-pdf-to-markdown/
 - Do NOT use Python 3.14 — Pillow build fails
 - Do NOT use non-multimodal LLMs for figure-heavy documents
 - Do NOT track `.omo/run-continuation/` in git (already ignored)
+- **Do NOT modify marker source code** — this is a documentation-only repo
+- **Do NOT try to fix marker bugs or LLM schema errors** — just run the tool; LLM warnings are non-fatal
 
 ## USER REQUIREMENTS (Jul 2026)
 

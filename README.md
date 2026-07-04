@@ -60,9 +60,9 @@ marker_single input.pdf \
   --output_dir ./output \
   --use_llm \
   --llm_service marker.services.openai.OpenAIService \
-  --openai_api_key "sk-..." \
-  --openai_base_url "https://your-endpoint/v1" \
-  --openai_model "your-model"
+  --openai_api_key "$DOCLING_VLM_API_KEY" \
+  --openai_base_url "$DOCLING_VLM_BASE_URL" \
+  --openai_model "$DOCLING_VLM_MODEL"
 ```
 
 ## LLM Backend Configuration
@@ -122,6 +122,10 @@ Output goes to `{output_dir}/{pdf_basename}/{pdf_basename}.md`
 Images extracted from the PDF are saved in the same folder with names like `_page_29_Figure_2.jpeg`.
 
 ## Common Issues
+
+### LLM warnings are non-fatal
+
+If you see `LLM did not return a valid response` or schema validation errors for `SectionHeaderSchema`, the conversion still succeeded. The markdown file was generated with fallback rendering. Do not try to modify marker source code to fix LLM schema errors — just re-run if needed.
 
 ### FileNotFoundError with Unicode filenames
 
