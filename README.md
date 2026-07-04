@@ -67,7 +67,7 @@ marker_single input.pdf \
 
 ## LLM Backend Configuration
 
-marker does **not** use `DOCLING_TEXT_*` env vars — those are docling-specific. marker uses `OpenAIService` for OpenAI-compatible endpoints.
+marker uses `OpenAIService` for OpenAI-compatible endpoints.
 
 ### CLI flags
 
