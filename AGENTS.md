@@ -61,18 +61,14 @@ When user asks to convert a PDF to markdown by chapter chunks:
 - API Key: From `DOCLING_VLM_API_KEY` env var
 - Model: `mimo-v2.5`
 
-**Important: marker uses 0-based page indexing internally**
+**Important: When user provides human page numbers, ALWAYS subtract 1 for 0-based indexing automatically.**
 
-Human pages 23-37 → `--page_range "22-36"` (human_start - 1 to human_end - 1)
+e.g., human pages 39-71 → `--page_range "38-70"`
 
 **Command template:**
 ```bash
-export DOCLING_VLM_BASE_URL="https://opencode.ai/zen/go/v1"
-export DOCLING_VLM_API_KEY="YOUR-API-KEY"
-export DOCLING_VLM_MODEL="mimo-v2.5"
-
 marker_single "/path/to/book.pdf" \
-  --page_range "START-END" \
+  --page_range "38-70" \
   --output_format markdown \
   --output_dir ./output \
   --use_llm \
@@ -102,13 +98,13 @@ marker_single input.pdf --output_format markdown
 # Convert with page range (0-based: human pages 23-37 → "22-36")
 marker_single input.pdf --page_range "22-36" --output_format markdown
 
-# Convert with LLM backend
+# Convert with LLM backend (env vars: DOCLING_VLM_API_KEY, DOCLING_VLM_BASE_URL, DOCLING_VLM_MODEL)
 marker_single input.pdf --page_range "22-36" --output_format markdown \
   --use_llm \
   --llm_service marker.services.openai.OpenAIService \
-  --openai_api_key "sk-..." \
-  --openai_base_url "https://your-endpoint/v1" \
-  --openai_model "your-model"
+  --openai_api_key "$DOCLING_VLM_API_KEY" \
+  --openai_base_url "$DOCLING_VLM_BASE_URL" \
+  --openai_model "$DOCLING_VLM_MODEL"
 ```
 
 ## NOTES
