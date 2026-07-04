@@ -43,6 +43,44 @@ marker-pdf-to-markdown/
 - Do NOT use non-multimodal LLMs for figure-heavy documents
 - Do NOT track `.omo/run-continuation/` in git (already ignored)
 
+## USER REQUIREMENTS (Jul 2026)
+
+### PDF Conversion by Chapter Chunks
+
+When user asks to convert a PDF to markdown by chapter chunks:
+
+**Requirements:**
+1. Convert PDF to markdown by chapter chunks (split by table of contents page ranges)
+2. Process **synchronously** — one chapter at a time to avoid CPU high load
+3. **Use LLM** (`--use_llm`) for better quality output
+4. Store output in `./output/`
+
+**LLM Config:**
+- Service: `marker.services.openai.OpenAIService`
+- Model, Base URL, API Key: From environment variables or user-specified
+
+**Important: marker uses 0-based page indexing internally**
+
+Human pages 23-37 → `--page_range "22-36"` (human_start - 1 to human_end - 1)
+
+**Command template:**
+```bash
+marker_single "/path/to/book.pdf" \
+  --page_range "START-END" \
+  --output_format markdown \
+  --output_dir ./output \
+  --use_llm \
+  --llm_service marker.services.openai.OpenAIService \
+  --openai_api_key "YOUR-API-KEY" \
+  --openai_base_url "YOUR-BASE-URL" \
+  --openai_model "YOUR-MODEL"
+```
+
+**Workflow:**
+1. Extract TOC from PDF to get chapter page ranges (use multimodal-looker agent)
+2. Convert chapters one at a time (synchronous, not parallel)
+3. Output: `{output_dir}/{pdf_basename}/{pdf_basename}.md`
+
 ## COMMANDS
 
 ```bash
