@@ -68,6 +68,7 @@ marker_single input.pdf \
 ## LLM Backend Configuration
 
 marker uses `OpenAIService` for OpenAI-compatible endpoints.
+option `--llm`
 
 ### CLI flags
 
